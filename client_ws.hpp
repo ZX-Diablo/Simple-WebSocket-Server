@@ -2,12 +2,12 @@
 #define	CLIENT_WS_HPP
 
 #include "crypto.hpp"
+#include "regex.hpp"
 
 #include <boost/asio.hpp>
 
 #include <unordered_map>
 #include <iostream>
-#include <regex>
 #include <random>
 
 namespace SimpleWeb {
@@ -159,11 +159,11 @@ namespace SimpleWeb {
                 
         SocketClientBase(const std::string& host_port_path, unsigned short default_port) : 
                 asio_resolver(asio_io_service) {
-            std::regex e("^([^:/]+):?([0-9]*)(.*)$");
+            regex e("^([^:/]+):?([0-9]*)(.*)$");
 
-            std::smatch sm;
+            smatch sm;
 
-            if(std::regex_match(host_port_path, sm, e)) {
+            if(regex_match(host_port_path, sm, e)) {
                 host=sm[1];
                 path=sm[3];
                 port=default_port;
@@ -233,7 +233,7 @@ namespace SimpleWeb {
         }
         
         void parse_handshake(std::istream& stream) const {
-            std::smatch sm;
+            smatch sm;
 
             //Not parsing the first line
             std::string line;
@@ -241,12 +241,12 @@ namespace SimpleWeb {
             line.pop_back();
 
             bool matched;
-            std::regex e("^([^:]*): ?(.*)$");
+            regex e("^([^:]*): ?(.*)$");
             //Parse the rest of the header
             do {
                 getline(stream, line);
                 line.pop_back();
-                matched=std::regex_match(line, sm, e);
+                matched=regex_match(line, sm, e);
                 if(matched) {
                     connection->header[sm[1]]=sm[2];
                 }

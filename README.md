@@ -28,21 +28,21 @@ OpenSSL libraries from https://www.openssl.org are required.
 
 ### Compile and run
 
-ws_examples.cpp and wss_examples.cpp use C++14 features.
+ws_examples.cpp and wss_examples.cpp DO NOT use C++14 features.
 
-Compile with a C++14 compiler supporting regex (for instance g++ 4.9):
+If you want stl::regex then compile with -D_SIMPLEWEB_CPP11_STL_ or write define before include. Otherwise compile with -lboost_regex.
 
 On Linux using g++: add -pthread
 
 #### WS
 
-g++ -O3 -std=c++1y ws_examples.cpp -lboost_system -lcrypto -o ws_examples
+g++ -O3 -std=c++11 ws_examples.cpp -lboost_system -lboost_regex -lcrypto -o ws_examples
 
 Then to run the server and client examples: ./ws_examples
 
 #### WSS
 
-g++ -O3 -std=c++1y wss_examples.cpp -lboost_system -lssl -lcrypto -o wss_examples
+g++ -O3 -std=c++11 wss_examples.cpp -lboost_system -lboost_regex -lssl -lcrypto -o wss_examples
 
 Before running, an RSA private key (server.key) and an SSL certificate (server.crt) must be created. Follow, for instance, the instructions given here (for a self-signed certificate): http://www.akadia.com/services/ssh_test_certificate.html
 
