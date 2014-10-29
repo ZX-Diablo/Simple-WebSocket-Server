@@ -30,7 +30,7 @@ OpenSSL libraries from https://www.openssl.org are required.
 
 ws_examples.cpp and wss_examples.cpp DO NOT use C++14 features.
 
-If you want stl::regex then compile with -D_SIMPLEWEB_CPP11_STL_ or write define before include. Otherwise compile with -lboost_regex.
+If you want std::regex then compile with -D_SIMPLEWEB_CPP11_STL_ or write define before include. Otherwise compile with -lboost_regex.
 
 On Linux using g++: add -pthread
 
